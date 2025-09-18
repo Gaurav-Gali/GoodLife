@@ -10,7 +10,7 @@ function Index() {
     useEffect(() => {
         const timer = setTimeout(() => {
             router.push('/(auth)/Login');
-        }, 1000);
+        }, 2000);
 
         return () => clearTimeout(timer);
     }, [router]);
