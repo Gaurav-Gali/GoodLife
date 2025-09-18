@@ -2,12 +2,18 @@ import React from 'react';
 import {Text, TouchableOpacity} from "react-native";
 import {useAtom} from "jotai";
 import {MobileNumberAtom} from "@/store/MobileNumberStore";
+import {OTPStore} from "@/store/OTPStore";
 
-const Keys = ({value}:{value:number}) => {
-    const [_, setMobileNumber] = useAtom(MobileNumberAtom);
+const Keys = ({value,type}:{value:number,type:string}) => {
+    const [mobile, setMobileNumber] = useAtom(MobileNumberAtom);
+    const [otp, setOTP] = useAtom(OTPStore);
 
     const handleKeyPress = () => {
-        setMobileNumber((prev) => prev.length<10 ? prev+String(value) : prev);
+        if (type === "mobile") {
+            setMobileNumber((prev) => prev.length<10 ? prev+String(value) : prev);
+        } else {
+            setOTP((prev) => prev.length<4 ? prev+String(value) : prev);
+        }
     }
 
     return (

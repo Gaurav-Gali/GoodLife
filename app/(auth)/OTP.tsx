@@ -1,52 +1,55 @@
 import React from 'react';
-import {View,Text,Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import ScreenWrapper from "@/components/ScreenWapper";
+import BlinkingCursor from "@/components/BlinkingCursor";
 import KeyPadInput from "@/components/AuthScreen/KeyPadInput";
-
-import {useAtom} from "jotai";
-import {MobileNumberAtom} from "@/store/MobileNumberStore";
 import Button from "@/components/Button";
-import BlinkingCursor from '@/components/BlinkingCursor';
 import {useRouter} from "expo-router";
+import {useAtom} from "jotai/index";
+import {MobileNumberAtom} from "@/store/MobileNumberStore";
+import {OTPStore} from "@/store/OTPStore";
 
-const Login = () => {
+const Otp = () => {
     const router = useRouter();
-    const [mobileNumber, _] = useAtom(MobileNumberAtom);
+    const [mobileNumber, setMobileNumber] = useAtom(MobileNumberAtom);
+    const [otp, setOTP] = useAtom(OTPStore);
 
     const handleGetOTP = () => {
-        if (mobileNumber.length < 10) {
-            alert("Please enter a valid mobile number");
-        } else {
+        if (otp.length < 4) {
+            alert("Incomplete OTP");
+        } else if(otp === '1234') {
+            alert("Correct OTP");
+        }
+        else {
             router.push("/(auth)/OTP");
         }
     }
-
     return (
         <ScreenWrapper className={"bg-white"}>
-            <View className={"flex items-center bg-white justify-center"}>
+            <View className={"flex items-center bg-white justify-end"}>
                 <Image
                     source={require("@/assets/images/couch.png")}
                     className={"h-32"}
                     resizeMode="cover"
                 />
             </View>
+
             <View className={"rounded-t-3xl pt-6 px-6 bg-white shadow-md flex-1"}>
-                <Text className={"text-3xl mb-3 text-zinc-800 tracking-wider font-semibold"}>{"Enter your\nmobile number"}</Text>
-                <Text className={"text-zinc-400 font-normal text-lg"}>We will send you a confirmation code</Text>
+                <Text className={"text-3xl mb-3 text-zinc-800 tracking-wider font-semibold"}>{"Enter code sent\nto your phone"}</Text>
+                <Text className={"text-zinc-400 font-normal text-lg"}>We sent the confirmation code to <Text className={"text-blue-600"}>+91 {mobileNumber}</Text></Text>
 
                 <View className={"flex-row items-center justify-center gap-2 mt-10"}>
-                    <Text className={"text-3xl font-semibold text-blue-600"}>+91</Text>
-                    <Text className={"text-3xl font-semibold text-zinc-700"}>{mobileNumber}</Text>
-                    {mobileNumber.length <10 && <BlinkingCursor />}
+                    <Text className={"text-3xl font-semibold text-zinc-700"}>{otp}</Text>
+                    {otp.length <4 && <BlinkingCursor />}
                 </View>
 
                 <View className={"flex items-center justify-center"}>
-                    <KeyPadInput type={"mobile"}/>
+                    <KeyPadInput type={"otp"}/>
                 </View>
 
                 <View>
                     <Button onPress={() => handleGetOTP()}>
-                        <Text className={"text-blue-50 font-medium text-xl m-3"}>Get OTP</Text>
+                        <Text className={"text-blue-50 font-medium text-xl m-3"}>Enter OTP</Text>
                     </Button>
                 </View>
 
@@ -65,4 +68,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Otp;
