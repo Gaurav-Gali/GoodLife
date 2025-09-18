@@ -5,18 +5,21 @@ import KeyPadInput from "@/components/AuthScreen/KeyPadInput";
 
 import {useAtom} from "jotai";
 import {MobileNumberAtom} from "@/store/MobileNumberStore";
+import {OTPStore} from "@/store/OTPStore";
 import Button from "@/components/Button";
 import BlinkingCursor from '@/components/BlinkingCursor';
 import {useRouter} from "expo-router";
 
 const Login = () => {
     const router = useRouter();
-    const [mobileNumber, _] = useAtom(MobileNumberAtom);
+    const [mobileNumber, setMobileNumber] = useAtom(MobileNumberAtom);
+    const [otp, setOTP] = useAtom(OTPStore);
 
     const handleGetOTP = () => {
         if (mobileNumber.length < 10) {
             alert("Please enter a valid mobile number");
         } else {
+            setOTP("");
             router.push("/(auth)/OTP");
         }
     }

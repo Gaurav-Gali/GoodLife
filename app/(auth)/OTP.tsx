@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import ScreenWrapper from "@/components/ScreenWapper";
 import BlinkingCursor from "@/components/BlinkingCursor";
@@ -21,13 +21,10 @@ const Otp = () => {
         } else if(otp === '1234') {
             alert("Correct OTP");
         }
-        else {
-            router.push("/(auth)/OTP");
-        }
     }
 
     const handleBack = () => {
-        router.back();
+        router.push('/(auth)/Login');
     }
 
     return (
