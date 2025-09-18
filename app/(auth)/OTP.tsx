@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View} from "react-native";
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import ScreenWrapper from "@/components/ScreenWapper";
 import BlinkingCursor from "@/components/BlinkingCursor";
 import KeyPadInput from "@/components/AuthScreen/KeyPadInput";
@@ -8,6 +8,7 @@ import {useRouter} from "expo-router";
 import {useAtom} from "jotai/index";
 import {MobileNumberAtom} from "@/store/MobileNumberStore";
 import {OTPStore} from "@/store/OTPStore";
+import { ArrowLeft } from 'lucide-react-native';
 
 const Otp = () => {
     const router = useRouter();
@@ -24,14 +25,28 @@ const Otp = () => {
             router.push("/(auth)/OTP");
         }
     }
+
+    const handleBack = () => {
+        router.back();
+    }
+
     return (
         <ScreenWrapper className={"bg-white"}>
-            <View className={"flex items-center bg-white justify-end"}>
-                <Image
-                    source={require("@/assets/images/couch.png")}
-                    className={"h-32"}
-                    resizeMode="cover"
-                />
+            <View className="bg-white">
+                <TouchableOpacity onPress={() => handleBack()} className="absolute z-50 top-0 left-4">
+                    <ArrowLeft
+                        size={28}
+                        color="black"
+                    />
+                </TouchableOpacity>
+
+                <View className={"flex items-center justify-center"}>
+                    <Image
+                        source={require("@/assets/images/couch.png")}
+                        className="h-32"
+                        resizeMode="cover"
+                    />
+                </View>
             </View>
 
             <View className={"rounded-t-3xl pt-6 px-6 bg-white shadow-md flex-1"}>
