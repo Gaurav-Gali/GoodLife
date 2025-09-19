@@ -19,7 +19,8 @@ const Otp = () => {
         if (otp.length < 4) {
             alert("Incomplete OTP");
         } else if(otp === '1234') {
-            alert("Correct OTP");
+            // alert("Correct OTP");
+            router.push("/(screens)/Dashboard");
         }
     }
 

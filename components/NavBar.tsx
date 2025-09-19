@@ -1,0 +1,27 @@
+import React from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { Bell } from 'lucide-react-native'; // notification icon
+
+const NavBar = () => {
+    return (
+        <View className="flex-row items-center justify-between px-4 py-3">
+            <Text className="text-zinc-800 text-3xl font-semibold">GoodLife</Text>
+
+            <View className="flex-row items-center justify-center gap-4">
+                <TouchableOpacity className={"bg-zinc-100 rounded-full h-11 w-11 flex items-center justify-center"}>
+                    <Bell color="#71717a" size={24} />
+                </TouchableOpacity>
+
+                <TouchableOpacity className={"border border-zinc-100 rounded-full"}>
+                    <Image
+                        source={require("@/assets/images/profile.png")}
+                        className={"h-11 w-11 rounded-full"}
+                        resizeMode="cover"
+                    />
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
+
+export default NavBar;
