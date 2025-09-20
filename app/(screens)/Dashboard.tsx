@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Expand, Minimize } from 'lucide-react-native';
 import TabSwitcher from '@/components/Dashboard/TabSwitcher';
-import { IssueCard } from '@/components/Dashboard/IssueCard';
 import IssuesMap from '@/components/Dashboard/IssuesMap';
+import IssueCardList from "@/components/Dashboard/IssueCardList";
 
 const Dashboard = () => {
     const [expanded, setExpanded] = useState(false);
@@ -24,9 +24,8 @@ const Dashboard = () => {
                     )}
                 </TouchableOpacity>
             </View>
-
             <TabSwitcher />
-            <IssueCard />
+            <IssueCardList/>
         </View>
     );
 };

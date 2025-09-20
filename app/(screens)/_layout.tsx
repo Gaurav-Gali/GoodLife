@@ -1,20 +1,26 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
-import { Slot } from 'expo-router';
+import { View, TouchableOpacity, Text } from 'react-native';
+import { Slot, usePathname } from 'expo-router';
 import ScreenWrapper from '@/components/ScreenWapper';
 import NavBar from '@/components/NavBar';
-import { Camera,OctagonAlert } from 'lucide-react-native';
+import { OctagonAlert } from 'lucide-react-native';
 
 const _Layout = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const pathname = usePathname();
+
+    const nonScreens = ['/ReportIssue'];
+    const showNavBar = !nonScreens.includes(pathname);
+
     return (
         <ScreenWrapper className="flex">
-            <NavBar />
+            {showNavBar && <NavBar />}
 
             <View className="flex-1">
                 <Slot />
 
                 <TouchableOpacity
-                    className="absolute z-[1000px] bottom-6 right-6 rounded-full bg-rose-500 px-5 py-3 gap-2 flex-row items-center justify-center active:opacity-90"
+                    className="absolute z-[1000] bottom-6 right-6 rounded-full bg-rose-500 px-5 py-3 gap-2 flex-row items-center justify-center active:opacity-90"
                     activeOpacity={0.8}
                     onPress={() => {
                         alert("Help is arriving");
@@ -25,7 +31,6 @@ const _Layout = () => {
                         SOS
                     </Text>
                 </TouchableOpacity>
-
             </View>
         </ScreenWrapper>
     );

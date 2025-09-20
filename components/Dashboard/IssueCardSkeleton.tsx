@@ -2,11 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { View, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-/**
- * Shimmer placeholder for a single IssueCard
- */
 export default function IssueCardSkeleton() {
-    // animated translateX for the moving gradient
     const shimmer = useRef(new Animated.Value(-1)).current;
 
     useEffect(() => {
@@ -19,7 +15,6 @@ export default function IssueCardSkeleton() {
         ).start();
     }, [shimmer]);
 
-    // gradient moves from left (-1) to right (1)
     const translateX = shimmer.interpolate({
         inputRange: [-1, 1],
         outputRange: [-200, 200],
