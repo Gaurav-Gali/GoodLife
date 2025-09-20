@@ -1,10 +1,15 @@
 import React from 'react';
-import {Text, View} from "react-native";
+import {View} from "react-native";
+import TabSwitcher from "@/components/Dashboard/TabSwitcher";
+import IssueCard from "@/components/Dashboard/IssueCard";
+import IssuesMap from "@/components/Dashboard/IssuesMap";
 
 const Dashboard = () => {
     return (
         <View className={"h-screen"}>
-            <Text>Hello</Text>
+            {/*<IssuesMap/>*/}
+            <TabSwitcher/>
+            <IssueCard/>
         </View>
     );
 };
