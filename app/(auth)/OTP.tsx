@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import ScreenWrapper from "@/components/ScreenWapper";
 import BlinkingCursor from "@/components/BlinkingCursor";
@@ -66,16 +66,16 @@ const Otp = () => {
                     </Button>
                 </View>
 
-                <View className="items-center mt-6">
-                    <Text className="text-zinc-400 text-sm text-center">
-                        By continuing, you agree to our{' '}
-                        <Text className="text-blue-600">Terms of Service</Text> &{' '}
-                        <Text className="text-blue-600">Privacy Policy</Text>.
-                    </Text>
-                    <Text className="text-zinc-400 text-xs mt-1 italic">
-                        We respect your privacy—no spam, ever.
-                    </Text>
-                </View>
+                {/*<View className="items-center mt-6">*/}
+                {/*    <Text className="text-zinc-400 text-sm text-center">*/}
+                {/*        By continuing, you agree to our{' '}*/}
+                {/*        <Text className="text-blue-600">Terms of Service</Text> &{' '}*/}
+                {/*        <Text className="text-blue-600">Privacy Policy</Text>.*/}
+                {/*    </Text>*/}
+                {/*    <Text className="text-zinc-400 text-xs mt-1 italic">*/}
+                {/*        We respect your privacy—no spam, ever.*/}
+                {/*    </Text>*/}
+                {/*</View>*/}
             </View>
         </ScreenWrapper>
     );

@@ -9,8 +9,8 @@ function Index() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            // router.push('/(auth)/Login');
-            router.push('/(screens)/Dashboard');
+            router.push('/(auth)/Login');
+            // router.push('/(screens)/Dashboard');
         }, 2000);
 
         return () => clearTimeout(timer);

@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Bell } from 'lucide-react-native';
+import {useRouter} from "expo-router";
 
 const NavBar = () => {
+    const router = useRouter();
     return (
         <View className="flex-row items-center justify-between px-4 py-3">
             <Text className="text-zinc-800 text-3xl font-semibold">GoodLife</Text>
@@ -12,7 +14,7 @@ const NavBar = () => {
                     <Bell color="#71717a" size={24} />
                 </TouchableOpacity>
 
-                <TouchableOpacity className={"border border-zinc-100 rounded-full"}>
+                <TouchableOpacity onPress={() => router.push("/(screens)/Profile")} className={"border border-zinc-100 rounded-full"}>
                     <Image
                         source={require("@/assets/images/profile.png")}
                         className={"h-11 w-11 rounded-full"}
