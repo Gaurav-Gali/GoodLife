@@ -1,15 +1,32 @@
-import React from 'react';
-import {View} from "react-native";
-import TabSwitcher from "@/components/Dashboard/TabSwitcher";
-import {IssueCard} from "@/components/Dashboard/IssueCard";
-import IssuesMap from "@/components/Dashboard/IssuesMap";
+import React, { useState } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { Expand, Minimize } from 'lucide-react-native';
+import TabSwitcher from '@/components/Dashboard/TabSwitcher';
+import { IssueCard } from '@/components/Dashboard/IssueCard';
+import IssuesMap from '@/components/Dashboard/IssuesMap';
 
 const Dashboard = () => {
+    const [expanded, setExpanded] = useState(false);
+
     return (
-        <View className={"h-screen"}>
-            <IssuesMap/>
-            <TabSwitcher/>
-            <IssueCard/>
+        <View className="h-screen bg-white">
+            <View className={`relative ${expanded ? 'h-[50vh]' : 'h-[150px]'}`}>
+                <IssuesMap />
+
+                <TouchableOpacity
+                    onPress={() => setExpanded(!expanded)}
+                    className="absolute top-3 right-6 bg-white rounded-full p-2 shadow"
+                >
+                    {expanded ? (
+                        <Minimize size={18} color="#3B82F6" />
+                    ) : (
+                        <Expand size={18} color="#3B82F6" />
+                    )}
+                </TouchableOpacity>
+            </View>
+
+            <TabSwitcher />
+            <IssueCard />
         </View>
     );
 };
