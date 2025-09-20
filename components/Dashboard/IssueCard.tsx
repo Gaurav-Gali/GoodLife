@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -64,7 +64,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
     );
 };
 
-const IssueCard = () => {
+export const IssueCard = () => {
     const [issues] = useAtom(IssuesAtom);
     const [issueType] = useAtom(IssueTypeAtom);
 
@@ -95,7 +95,7 @@ const IssueCard = () => {
         <FlatList
             data={filtered}
             keyExtractor={i => i.id.toString()}
-            contentContainerStyle={{ padding: 16, paddingBottom:120 }}
+            contentContainerStyle={{ padding: 16, paddingBottom:120, paddingTop:5 }}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
                 const style = priorityChip[item.priority];
@@ -148,5 +148,3 @@ const Meta = ({ icon, text }: { icon: React.ReactNode; text: string }) => (
         <Text className="ml-2 text-zinc-600 text-sm">{text}</Text>
     </View>
 );
-
-export default IssueCard;

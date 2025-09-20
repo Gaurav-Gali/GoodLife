@@ -1,7 +1,11 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { AppleMaps } from 'expo-maps';
+import { View } from 'react-native';
+import MapView from 'react-native-maps';
 
 export default function IssuesMap() {
-    return <AppleMaps.View style={StyleSheet.absoluteFill} />;
+    return (
+        <View className="h-[150px] bg-white px-3 mt-1 mb-1">
+            <MapView style={{flex:1, borderRadius:15}} />
+        </View>
+    );
 }
