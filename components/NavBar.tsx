@@ -6,7 +6,7 @@ import {useRouter} from "expo-router";
 const NavBar = () => {
     const router = useRouter();
     return (
-        <View className="flex-row items-center justify-between px-4 py-3">
+        <View className="flex-row bg-white items-center justify-between px-4 py-3">
             <Text className="text-zinc-800 text-3xl font-semibold">GoodLife</Text>
 
             <View className="flex-row bg-white items-center justify-center gap-4">

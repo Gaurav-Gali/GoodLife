@@ -5,6 +5,7 @@ export const IssueTypeAtom = atom(1);
 export type IssuesType = {
     id:number;
     userId:number;
+    // upvotes ?: string[];
     title:string;
     description:string;
     date:string;
@@ -12,7 +13,7 @@ export type IssuesType = {
     location:string;
     images:string[];
     upvotes:number;
-    priority: "high" | "medium" | "low";
+    priority: "high" | "medium" | "low" | "progress";
     verified:boolean;
     resolved:boolean;
 }

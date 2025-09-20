@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
+import {router} from "expo-router";
 
 export default function IssuesMap() {
     const baseLat = 37.78825;
@@ -46,6 +47,7 @@ export default function IssuesMap() {
                         coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
                         title={marker.title}
                         description={marker.description}
+                        onPress={() => router.push('/(screens)/issues/1')}
                     />
                 ))}
             </MapView>

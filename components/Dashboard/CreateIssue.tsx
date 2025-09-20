@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image,TextInput, TouchableOpacity, View} from "react-native";
-import {Image as ImageIcon, Mic, ArrowUp,X} from "lucide-react-native";
+import {Image as ImageIcon, MapPin, ArrowUp,X} from "lucide-react-native";
 
 const CreateIssue = () => {
     return (
@@ -18,7 +18,7 @@ const CreateIssue = () => {
                             className="bg-zinc-100 border border-zinc-200 rounded-full h-10 w-10 flex items-center justify-center"
                             activeOpacity={0.7}
                         >
-                            <Mic color="#52525b" size={18} />
+                            <MapPin color="#52525b" size={18} />
                         </TouchableOpacity>
 
                         <TouchableOpacity

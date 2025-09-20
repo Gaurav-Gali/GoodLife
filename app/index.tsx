@@ -10,6 +10,7 @@ function Index() {
     useEffect(() => {
         const timer = setTimeout(() => {
             router.push('/(auth)/Login');
+            // router.push('/(screens)/issues/45');
             // router.push('/(screens)/Dashboard');
         }, 2000);
 

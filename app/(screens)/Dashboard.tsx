@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React from 'react';
+import {View, TouchableOpacity} from 'react-native';
 import { Expand, Minimize } from 'lucide-react-native';
 import TabSwitcher from '@/components/Dashboard/TabSwitcher';
 import IssuesMap from '@/components/Dashboard/IssuesMap';
 import IssueCardList from "@/components/Dashboard/IssueCardList";
 
+import {useAtom} from "jotai";
+import {MapExpandedStore} from "@/store/MapStore";
+
 const Dashboard = () => {
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useAtom(MapExpandedStore);
 
     return (
         <View className="h-screen bg-white">

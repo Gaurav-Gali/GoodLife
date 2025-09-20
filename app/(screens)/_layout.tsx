@@ -9,11 +9,11 @@ const _Layout = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const pathname = usePathname();
 
-    const nonScreens = ['/ReportIssue','/Profile'];
-    const showNavBar = !nonScreens.includes(pathname);
+    const nonScreens = ['/Dashboard'];
+    const showNavBar = nonScreens.includes(pathname);
 
     return (
-        <ScreenWrapper className="flex">
+        <ScreenWrapper className="flex bg-white">
             {showNavBar && <NavBar />}
 
             <View className="flex-1">
