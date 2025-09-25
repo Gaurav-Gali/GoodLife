@@ -1,17 +1,22 @@
 import {Text, View} from "react-native";
 import ScreenWapper from "@/components/ScreenWapper";
+import {MobileNumberAtom} from "@/store/MobileNumberStore";
+import {useAtom} from "jotai/index";
 
 import { useRouter } from 'expo-router';
 import {useEffect} from "react";
 
 function Index() {
     const router = useRouter();
+    const [number, setNumber] = useAtom(MobileNumberAtom);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push('/(auth)/Login');
-            // router.push('/(screens)/issues/45');
-            // router.push('/(screens)/Dashboard');
+            if (number === "") {
+                router.push('/(auth)/Login');
+            } else {
+                router.push('/(screens)/Dashboard');
+            }
         }, 2000);
 
         return () => clearTimeout(timer);

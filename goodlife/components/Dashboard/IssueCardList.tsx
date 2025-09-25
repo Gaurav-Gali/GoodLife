@@ -1,23 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import { useAtom } from 'jotai';
 import { Building2 } from 'lucide-react-native';
-import { IssuesAtom, IssueTypeAtom } from '@/store/IssueStore';
 import Card from './Card';
 import IssueCardSkeleton from './IssueCardSkeleton';
+import { getAllIssues, IssuesType } from "@/actions/IssueActions";
+import { useAtom } from 'jotai';
+import { IssueTypeAtom } from '@/store/IssueStore';
+import {MobileNumberAtom} from "@/store/MobileNumberStore";
 
 const IssueCardList = () => {
-    const [issues] = useAtom(IssuesAtom);
     const [issueType] = useAtom(IssueTypeAtom);
+    const [mobile,setMobile] = useAtom(MobileNumberAtom);
 
-    const [loading, setLoading] = React.useState(false);
+    const [issues, setIssues] = useState<IssuesType[]>([]);
+    const [loading, setLoading] = useState(true);
 
+    // Fetch issues from Firestore
+    useEffect(() => {
+        const fetchIssues = async () => {
+            setLoading(true);
+            try {
+                const data = await getAllIssues();
+                setIssues(data);
+            } catch (err) {
+                console.error('Failed to fetch issues:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchIssues();
+    }, []);
+
+    // Filter & sort issues based on issueType and priority
     const filtered = issues
-        .filter(i => (!i.resolved && issueType === 1) || (i.resolved && issueType === 2))
+        .filter(i => (i.status !== 'resolved' && issueType === 1) || (i.status === 'resolved' && issueType === 2))
         .sort((a, b) => {
             const order = { high: 3, medium: 2, low: 1 } as const;
             return order[b.priority] - order[a.priority];
         });
+
+    if (loading) {
+        return <IssueCardSkeleton />;
+    }
 
     if (!filtered.length) {
         return (
@@ -28,19 +53,13 @@ const IssueCardList = () => {
         );
     }
 
-    if (loading) {
-        return (
-            <IssueCardSkeleton/>
-        );
-    }
-
     return (
         <FlatList
             data={filtered}
             keyExtractor={i => i.id.toString()}
             contentContainerStyle={{ padding: 16, paddingBottom: 120, paddingTop: 5 }}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => <Card item={item} isResolved={issueType === 2} />}
+            renderItem={({ item }) => <Card currentUserPhone={mobile} item={item} isResolved={issueType === 2} />}
         />
     );
 };

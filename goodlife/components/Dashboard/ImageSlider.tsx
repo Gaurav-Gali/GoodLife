@@ -30,7 +30,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
                 {images.map((img, i) => (
                     <View key={i} style={{ width: slideWidth }}>
                         <Image
-                            source={imageMap[img]}
+                            source={{uri: img}}
                             style={{
                                 width: imageInnerWidth,
                                 height: 192,
