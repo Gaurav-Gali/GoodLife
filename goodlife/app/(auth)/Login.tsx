@@ -5,7 +5,7 @@ import KeyPadInput from "@/components/AuthScreen/KeyPadInput";
 
 import {useAtom} from "jotai";
 import {MobileNumberAtom} from "@/store/MobileNumberStore";
-import {OTPStore} from "@/store/OTPStore";
+import {OTPStore,OTPConfirm} from "@/store/OTPStore";
 import Button from "@/components/Button";
 import BlinkingCursor from '@/components/BlinkingCursor';
 import {useRouter} from "expo-router";
@@ -14,13 +14,24 @@ const Login = () => {
     const router = useRouter();
     const [mobileNumber, setMobileNumber] = useAtom(MobileNumberAtom);
     const [otp, setOTP] = useAtom(OTPStore);
+    const [confirm, setConfirm] = useAtom(OTPConfirm);
 
-    const handleGetOTP = () => {
+    function generateSixDigitCode(): string {
+        const num = Math.floor(Math.random() * 1_000_000);
+        return num.toString().padStart(6, "0");
+    }
+
+    const handleGetOTP = async () => {
         if (mobileNumber.length < 10) {
             alert("Please enter a valid mobile number");
         } else {
-            setOTP("");
-            router.push("/(auth)/OTP");
+            try {
+                setOTP("");
+                setConfirm(generateSixDigitCode());
+                router.push("/(auth)/OTP");
+            } catch (err) {
+                alert(err);
+            }
         }
     }
 
@@ -47,22 +58,14 @@ const Login = () => {
                     <KeyPadInput type={"mobile"}/>
                 </View>
 
+                <View id={"recaptcha"}></View>
+
                 <View>
                     <Button onPress={() => handleGetOTP()}>
                         <Text className={"text-blue-50 font-medium text-xl m-3"}>Get OTP</Text>
                     </Button>
                 </View>
 
-                {/*<View className="items-center mt-6">*/}
-                {/*    <Text className="text-zinc-400 text-sm text-center">*/}
-                {/*        By continuing, you agree to our{' '}*/}
-                {/*        <Text className="text-blue-600">Terms of Service</Text> &{' '}*/}
-                {/*        <Text className="text-blue-600">Privacy Policy</Text>.*/}
-                {/*    </Text>*/}
-                {/*    <Text className="text-zinc-400 text-xs mt-1 italic">*/}
-                {/*        We respect your privacy—no spam, ever.*/}
-                {/*    </Text>*/}
-                {/*</View>*/}
             </View>
         </ScreenWrapper>
     );

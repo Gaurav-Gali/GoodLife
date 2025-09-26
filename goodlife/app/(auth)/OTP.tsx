@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Image, Text, TouchableOpacity, View} from "react-native";
 import ScreenWrapper from "@/components/ScreenWapper";
 import BlinkingCursor from "@/components/BlinkingCursor";
 import KeyPadInput from "@/components/AuthScreen/KeyPadInput";
@@ -7,26 +7,38 @@ import Button from "@/components/Button";
 import {useRouter} from "expo-router";
 import {useAtom} from "jotai/index";
 import {MobileNumberAtom} from "@/store/MobileNumberStore";
-import {OTPStore} from "@/store/OTPStore";
+import {OTPStore,OTPConfirm} from "@/store/OTPStore";
 import { ArrowLeft } from 'lucide-react-native';
+import {addUserIfNotExists} from "@/actions/UserActions";
 
 const Otp = () => {
     const router = useRouter();
     const [mobileNumber, setMobileNumber] = useAtom(MobileNumberAtom);
-    const [otp, setOTP] = useAtom(OTPStore);
+    const [otp, setOtp] = useAtom(OTPStore);
+    const [confirm, setConfirm] = useAtom(OTPConfirm);
+    const [loading,setLoading] = useState(false);
 
-    const handleGetOTP = () => {
-        if (otp.length < 4) {
+    const handleGetOTP = async () => {
+        if (otp.length < 6) {
             alert("Incomplete OTP");
-        } else if(otp === '1234') {
-            // alert("Correct OTP");
+        } else if(otp === confirm) {
+            setLoading(true);
+            await addUserIfNotExists(mobileNumber);
+            setLoading(false);
+
             router.push("/(screens)/Dashboard");
+        } else {
+            alert("Incorrect OTP");
         }
     }
 
     const handleBack = () => {
         router.push('/(auth)/Login');
     }
+
+    useEffect(() => {
+        alert(confirm);
+    }, []);
 
     return (
         <ScreenWrapper className={"bg-white"}>
@@ -53,7 +65,7 @@ const Otp = () => {
 
                 <View className={"flex-row items-center justify-center gap-2 mt-10"}>
                     <Text className={"text-3xl font-semibold text-zinc-700"}>{otp}</Text>
-                    {otp.length <4 && <BlinkingCursor />}
+                    {otp.length < 4 && <BlinkingCursor />}
                 </View>
 
                 <View className={"flex items-center justify-center"}>
@@ -62,20 +74,10 @@ const Otp = () => {
 
                 <View>
                     <Button onPress={() => handleGetOTP()}>
-                        <Text className={"text-blue-50 font-medium text-xl m-3"}>Enter OTP</Text>
+                        {loading ? <ActivityIndicator className={"m-3"} size={20} color="white" /> : <Text className={"text-blue-50 font-medium text-xl m-3"}>Enter OTP</Text>}
                     </Button>
                 </View>
 
-                {/*<View className="items-center mt-6">*/}
-                {/*    <Text className="text-zinc-400 text-sm text-center">*/}
-                {/*        By continuing, you agree to our{' '}*/}
-                {/*        <Text className="text-blue-600">Terms of Service</Text> &{' '}*/}
-                {/*        <Text className="text-blue-600">Privacy Policy</Text>.*/}
-                {/*    </Text>*/}
-                {/*    <Text className="text-zinc-400 text-xs mt-1 italic">*/}
-                {/*        We respect your privacy—no spam, ever.*/}
-                {/*    </Text>*/}
-                {/*</View>*/}
             </View>
         </ScreenWrapper>
     );

@@ -12,7 +12,7 @@ const Keys = ({value,type}:{value:number,type:string}) => {
         if (type === "mobile") {
             setMobileNumber((prev) => prev.length<10 ? prev+String(value) : prev);
         } else {
-            setOTP((prev) => prev.length<4 ? prev+String(value) : prev);
+            setOTP((prev) => prev.length<6 ? prev+String(value) : prev);
         }
     }
 

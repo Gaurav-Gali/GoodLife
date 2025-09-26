@@ -28,7 +28,10 @@ const Profile = () => {
                         <Text className={"text-blue-500 text-3xl font-medium"}>+91</Text>
                         <Text className={"text-3xl"}>{mobileNumber}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => router.replace('/')} className={"bg-rose-500 flex-row items-center gap-2 justify-center p-2 px-4 rounded-full"}>
+                    <TouchableOpacity onPress={() => {
+                        setMobileNumber("");
+                        router.replace('/');
+                    }} className={"bg-rose-500 flex-row items-center gap-2 justify-center p-2 px-4 rounded-full"}>
                         <LogOut size={16} color={"white"}/>
                         <Text className={"text-white font-semibold"}>Logout</Text>
                     </TouchableOpacity>
